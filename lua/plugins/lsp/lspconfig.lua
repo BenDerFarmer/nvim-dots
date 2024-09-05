@@ -9,7 +9,7 @@ return {
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
 
-		lspconfig.tsserver.setup({
+		lspconfig.ts_ls.setup({
 			init_options = {
 				preferences = {
 					disableSuggestions = true,
@@ -80,12 +80,6 @@ return {
 
 		-- configure html server
 		lspconfig["html"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure typescript server with plugin
-		lspconfig["tsserver"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
