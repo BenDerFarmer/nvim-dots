@@ -9,14 +9,6 @@ return {
 		-- import lspconfig plugin
 		local lspconfig = require("lspconfig")
 
-		lspconfig.ts_ls.setup({
-			init_options = {
-				preferences = {
-					disableSuggestions = true,
-				},
-			},
-		})
-
 		-- import cmp-nvim-lsp plugin
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
@@ -78,30 +70,60 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
+		local servers = { "gopls", "cssls", "pyright", "templ" }
+		for _, lsp in ipairs(servers) do
+			lspconfig[lsp].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+			})
+		end
+
+		lspconfig.denols.setup({
+			on_attach = on_attach,
+			cmd = { "/home/ben/deno-lsp" },
+		})
+
+		lspconfig.ts_ls.setup({
+			on_attach = on_attach,
+			root_dir = lspconfig.util.root_pattern("package.json"),
+			single_file_support = false,
+		})
+
 		-- configure html server
 		lspconfig["html"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 
-			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+				"templ",
+			},
 		})
 
-		-- configure go server
-		lspconfig["gopls"].setup({
-			capabilities = capabilities,
+		lspconfig.htmx.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
+			filetypes = { "html", "templ" },
 		})
 
-		-- configure css server
-		lspconfig["cssls"].setup({
-			capabilities = capabilities,
+		lspconfig.tailwindcss.setup({
 			on_attach = on_attach,
-		})
-
-		-- configure tailwindcss server
-		lspconfig["tailwindcss"].setup({
 			capabilities = capabilities,
-			on_attach = on_attach,
+			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+			settings = {
+				tailwindCSS = {
+					includeLanguages = {
+						templ = "html",
+					},
+				},
+			},
 		})
 
 		-- configure svelte server
@@ -121,30 +143,21 @@ return {
 			end,
 		})
 
-		-- configure prisma orm server
-		lspconfig["prismals"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
-		-- configure graphql language server
-		lspconfig["graphql"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-			filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-		})
-
 		-- configure emmet language server
 		lspconfig["emmet_ls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
-			filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
-		})
-
-		-- configure python server
-		lspconfig["pyright"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
+			filetypes = {
+				"html",
+				"typescriptreact",
+				"javascriptreact",
+				"css",
+				"sass",
+				"scss",
+				"less",
+				"svelte",
+				"templ",
+			},
 		})
 
 		-- configure lua server (with special settings)

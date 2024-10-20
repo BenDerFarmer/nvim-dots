@@ -54,4 +54,37 @@ return {
 			require("onedark").load()
 		end,
 	},
+	{
+		"catppuccin/nvim",
+		lazy = false,
+		name = "catppuccin",
+		priority = 1000,
+		opts = {
+			color_overrides = {
+				latte = {
+					base = "#fbf6e4",
+					mantle = "#f5f0de",
+				},
+			},
+			integrations = {
+				cmp = true,
+				gitsigns = true,
+				nvimtree = true,
+				treesitter = true,
+				notify = false,
+				mini = {
+					enabled = true,
+					indentscope_color = "",
+				},
+				custom_highlights = function(colors)
+					return {
+						Cursor = { bg = colors.base, fg = colors.crust }, -- Change 'flamingo' and 'crust' to any colors you prefer
+					}
+				end,
+
+				-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
+			},
+		},
+	},
+	{ "rose-pine/neovim", name = "rose-pine" },
 }
