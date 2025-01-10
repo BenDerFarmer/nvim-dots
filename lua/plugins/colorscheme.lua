@@ -1,14 +1,7 @@
 return {
 	{
-		"bluz71/vim-nightfly-guicolors",
-		priority = 1000, -- make sure to load this before all the other start plugins
-		config = function()
-			-- load the colorscheme here
-			--vim.cmd([[colorscheme nightfly]])
-		end,
-	},
-	{
 		"folke/tokyonight.nvim",
+		lazy = true,
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			local bg = "#011628"
@@ -47,11 +40,12 @@ return {
 	},
 	{
 		"navarasu/onedark.nvim",
+		lazy = true,
 		config = function()
 			require("onedark").setup({
 				style = "deep",
 			})
-			require("onedark").load()
+			-- require("onedark").load()
 		end,
 	},
 	{
@@ -60,12 +54,6 @@ return {
 		name = "catppuccin",
 		priority = 1000,
 		opts = {
-			color_overrides = {
-				latte = {
-					base = "#fbf6e4",
-					mantle = "#f5f0de",
-				},
-			},
 			integrations = {
 				cmp = true,
 				gitsigns = true,
@@ -81,7 +69,6 @@ return {
 						Cursor = { bg = colors.base, fg = colors.crust }, -- Change 'flamingo' and 'crust' to any colors you prefer
 					}
 				end,
-
 				-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 			},
 		},

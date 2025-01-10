@@ -80,7 +80,8 @@ return {
 
 		lspconfig.denols.setup({
 			on_attach = on_attach,
-			cmd = { "/home/ben/deno-lsp" },
+			root_dir = lspconfig.util.root_pattern("deno.json"),
+			cmd = { "/home/ben/scripts/deno-lsp" },
 		})
 
 		lspconfig.ts_ls.setup({
@@ -116,7 +117,15 @@ return {
 		lspconfig.tailwindcss.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+			filetypes = {
+				"templ",
+				"astro",
+				"javascript",
+				"typescript",
+				"react",
+				"typescriptreact",
+				"javascriptreact",
+			},
 			settings = {
 				tailwindCSS = {
 					includeLanguages = {

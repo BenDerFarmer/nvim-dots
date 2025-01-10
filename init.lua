@@ -14,9 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } }, {
-	install = {
-		colorscheme = { "tokyonight" },
-	},
 	checker = {
 		enabled = true,
 		notify = false,
@@ -25,3 +22,15 @@ require("lazy").setup({ { import = "plugins" }, { import = "plugins.lsp" } }, {
 		notify = false,
 	},
 })
+
+local function get_hostname()
+	local f = io.popen("/bin/hostnamectl hostname")
+	local hostname = f:read("*a") or ""
+	f:close()
+	hostname = string.gsub(hostname, "\n$", "")
+	return hostname
+end
+
+if get_hostname() == "archchrome" then
+	vim.cmd("colorscheme catppuccin-latte")
+end
