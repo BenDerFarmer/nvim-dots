@@ -80,8 +80,8 @@ return {
 
 		lspconfig.denols.setup({
 			on_attach = on_attach,
+			cmd = { "deno-lsp" },
 			root_dir = lspconfig.util.root_pattern("deno.json"),
-			cmd = { "/home/ben/scripts/deno-lsp" },
 		})
 
 		lspconfig.ts_ls.setup({
