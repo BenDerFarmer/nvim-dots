@@ -35,6 +35,7 @@ return {
 		},
 		renderer = {
 			root_folder_label = false,
+			group_empty = true,
 			highlight_git = false,
 			highlight_opened_files = "none",
 
@@ -51,7 +52,7 @@ return {
 				},
 
 				glyphs = {
-					default = "󰈚",
+					default = "",
 					symlink = "",
 					folder = {
 						default = "",

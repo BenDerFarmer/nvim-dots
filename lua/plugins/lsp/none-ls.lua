@@ -4,11 +4,13 @@ return {
 	-- event = { "BufReadPre", "BufNewFile" }, -- to enable uncomment this
 	dependencies = {
 		"jay-babu/mason-null-ls.nvim",
+		"MunifTanjim/eslint.nvim",
 	},
 	config = function()
 		local mason_null_ls = require("mason-null-ls")
 
 		local null_ls = require("null-ls")
+		local eslint = require("eslint")
 
 		local null_ls_utils = require("null-ls.utils")
 
@@ -25,6 +27,26 @@ return {
 		-- for conciseness
 		local formatting = null_ls.builtins.formatting -- to setup formatters
 		local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+
+		-- to setup format on save
+		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+		local codeActions = null_ls.builtins.code_actions
+		local code_actions = null_ls.builtins.code_actions
+
+		local eslint_config = {
+			prefer_local = "node_modules/.bin",
+			condition = function(utils)
+				return utils.root_has_file({
+					".eslintrc",
+					".eslintrc.js",
+					".eslintrc.cjs",
+					".eslintrc.yaml",
+					".eslintrc.yml",
+					".eslintrc.json",
+				})
+			end,
+		}
 
 		-- to setup format on save
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -49,6 +71,9 @@ return {
 						return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs" }) -- only enable if root has .eslintrc.js or .eslintrc.cjs
 					end,
 				}),
+				formatting.eslint_d.with(eslint_config),
+				diagnostics.eslint_d.with(eslint_config),
+				code_actions.eslint_d.with(eslint_config),
 			},
 			-- configure format on save
 			on_attach = function(current_client, bufnr)
@@ -69,6 +94,26 @@ return {
 					})
 				end
 			end,
+		})
+
+		eslint.setup({
+			bin = "eslint_d", -- or `eslint_d`
+			code_actions = {
+				enable = true,
+				apply_on_save = {
+					enable = true,
+					types = { "directive", "problem", "suggestion", "layout" },
+				},
+				disable_rule_comment = {
+					enable = true,
+					location = "separate_line", -- or `same_line`
+				},
+			},
+			diagnostics = {
+				enable = true,
+				report_unused_disable_directives = false,
+				run_on = "type", -- or `save`
+			},
 		})
 	end,
 }

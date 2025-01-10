@@ -21,7 +21,7 @@ return {
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				go = { "gofmt" },
-				templ = { "templ fmt" },
+				-- templ = { "templ fmt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
