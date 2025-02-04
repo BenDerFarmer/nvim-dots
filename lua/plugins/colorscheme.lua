@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/tokyonight.nvim",
-		lazy = true,
+		lazy = false,
 		priority = 1000, -- make sure to load this before all the other start plugins
 		config = function()
 			local bg = "#011628"
@@ -40,12 +40,13 @@ return {
 	},
 	{
 		"navarasu/onedark.nvim",
-		lazy = true,
+		lazy = false,
+		priority = 1000,
 		config = function()
 			require("onedark").setup({
 				style = "deep",
 			})
-			-- require("onedark").load()
+			require("onedark").load()
 		end,
 	},
 	{

@@ -36,6 +36,8 @@ return {
 				"emmet_ls",
 				"pylsp",
 				"kotlin_language_server",
+				"htmx",
+				"zls",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed

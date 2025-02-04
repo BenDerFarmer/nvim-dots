@@ -70,7 +70,7 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		local servers = { "gopls", "cssls", "pyright", "templ", "kotlin_language_server" }
+		local servers = { "gopls", "cssls", "pyright", "templ", "kotlin_language_server", "zls" }
 		for _, lsp in ipairs(servers) do
 			lspconfig[lsp].setup({
 				on_attach = on_attach,
@@ -84,11 +84,11 @@ return {
 			root_dir = lspconfig.util.root_pattern("deno.json"),
 		})
 
-		-- lspconfig.ts_ls.setup({
-		-- 	on_attach = on_attach,
-		-- 	root_dir = lspconfig.util.root_pattern("package.json"),
-		-- 	single_file_suport = false,
-		-- })
+		lspconfig.ts_ls.setup({
+			on_attach = on_attach,
+			root_dir = lspconfig.util.root_pattern("package.json"),
+			single_file_suport = false,
+		})
 
 		-- configure html server
 		lspconfig["html"].setup({

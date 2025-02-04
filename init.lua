@@ -34,3 +34,7 @@ end
 if get_hostname() == "archchrome" then
 	vim.cmd("colorscheme catppuccin-latte")
 end
+--
+-- if get_hostname() == "archlinux" then
+-- 	vim.cmd("colorscheme catppuccin-mocha")
+-- end
