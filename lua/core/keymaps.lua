@@ -8,6 +8,8 @@ local keymap = vim.keymap -- for conciseness
 keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 keymap.set("n", ":", "<cmd>FineCmdline<CR>")
+keymap.set("n", "<leader>t", '<CMD>lua require("FTerm").toggle()<CR>')
+keymap.set("t", "<leader>t", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 
 -- General Keymaps -------------------
 
